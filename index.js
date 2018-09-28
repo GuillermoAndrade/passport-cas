@@ -101,7 +101,7 @@ function Strategy(options, verify) {
                     });
                 };
             } else {
-                this._validateUri = "/p3/serviceValidate";
+                this._validateUri = "/cas/p3/serviceValidate";
                 this._validate = function (req, body, verified) {
                     parseString(body, xmlParseOpts, function (err, result) {
                         if (err) {
@@ -158,9 +158,10 @@ Strategy.prototype.authenticate = function (req, options) {
 
     var service = this.service(req);
 
-    var ticket = req.param('ticket');
+    var ticket = req.query.ticket;
     if (!ticket) {
-        var redirectURL = url.parse(this.ssoBase + '/login', true);
+    //        var redirectURL = url.parse(this.ssoBase + '/login', true);
+        var redirectURL = url.parse(this.ssoBase, true);
 
         redirectURL.query.service = service;
         // copy loginParams in login query
